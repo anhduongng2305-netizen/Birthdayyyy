@@ -1,0 +1,2450 @@
+```html
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Birthday.exe</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: white;
+            color: #D4AF37;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+
+        /* =========================
+           CHUNG
+        ========================= */
+
+        .screen {
+            width: 100vw;
+            height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            animation: fadeIn 0.8s ease;
+        }
+
+
+        .hidden {
+            display: none;
+        }
+
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+
+        }
+
+
+        /* =========================
+           TIÊU ĐỀ
+        ========================= */
+
+        h1 {
+            font-size: 55px;
+            margin-bottom: 10px;
+            color: #D4AF37;
+        }
+
+
+        h2 {
+            font-size: 45px;
+            margin-bottom: 15px;
+            color: #D4AF37;
+        }
+
+
+        p {
+            color: #B8941F;
+            font-size: 20px;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+
+        button {
+
+            padding: 15px 30px;
+
+            border: 2px solid #D4AF37;
+
+            border-radius: 12px;
+
+            background: white;
+
+            color: #D4AF37;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+
+        }
+
+
+        button:hover {
+
+            transform: scale(1.08);
+
+            background: #D4AF37;
+
+            color: white;
+
+        }
+
+
+        /* =========================
+           POPUP
+        ========================= */
+
+        .popup {
+
+            position: fixed;
+
+            top: 50%;
+            left: 50%;
+
+            transform:
+                translate(-50%, -50%)
+                scale(1);
+
+            background: #D4AF37;
+
+            color: white;
+
+            padding: 25px 40px;
+
+            border-radius: 18px;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 10px 40px
+                rgba(212, 175, 55, 0.35);
+
+            opacity: 1;
+
+            z-index: 100;
+
+            transition:
+                transform 0.8s ease,
+                opacity 0.8s ease;
+
+        }
+
+
+        .popup.hide {
+
+            transform:
+                translate(-50%, -50%)
+                scale(0);
+
+            opacity: 0;
+
+        }
+
+
+        /* =========================
+           TRANG 2
+        ========================= */
+
+        #page2 p {
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           ACCESS DENIED
+        ========================= */
+
+        #denied h2 {
+            font-size: 50px;
+            color: #D4AF37;
+        }
+
+
+        #denied p {
+            color: #B8941F;
+        }
+
+
+        /* =========================
+           TRANG 3
+        ========================= */
+
+        #page3 h2 {
+
+            font-size: 42px;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        #page3 .subtitle {
+
+            font-family: monospace;
+
+            font-size: 17px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .question-box {
+
+            width: 500px;
+
+            max-width: 90%;
+
+            border: 2px solid #D4AF37;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(212, 175, 55, 0.12);
+
+        }
+
+
+        .question-number {
+
+            font-family: monospace;
+
+            font-size: 14px;
+
+            color: #B8941F;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .question {
+
+            font-size: 20px;
+
+            color: #D4AF37;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .question-box button {
+
+            padding: 10px 20px;
+
+            font-size: 14px;
+
+        }
+
+
+        .completed {
+
+            opacity: 0.5;
+
+            pointer-events: none;
+
+        }
+
+
+        /* =========================
+           THANH TIẾN ĐỘ
+        ========================= */
+
+        .progress-container {
+
+            width: 500px;
+
+            max-width: 90%;
+
+            height: 8px;
+
+            border: 1px solid #D4AF37;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            margin: 15px 0 25px 0;
+
+        }
+
+
+        .progress-bar {
+
+            height: 100%;
+
+            width: 0%;
+
+            background: #D4AF37;
+
+            transition: 0.5s;
+
+        }
+
+
+        #completeMessage {
+
+            display: none;
+
+            margin-top: 15px;
+
+        }
+
+
+        #completeMessage p {
+
+            font-family: monospace;
+
+            font-size: 16px;
+
+        }
+
+
+        #continueBtn {
+
+            display: none;
+
+            margin-top: 20px;
+
+        }
+
+
+        /* =========================
+           TRANG 4
+        ========================= */
+
+        #page4 {
+
+            padding: 30px;
+
+            overflow-y: auto;
+
+            justify-content: flex-start;
+
+            min-height: 100vh;
+
+        }
+
+
+        .birthday-icon {
+
+            font-size: 70px;
+
+            margin-bottom: 10px;
+
+            animation:
+                birthdayBounce
+                1.5s
+                infinite;
+
+        }
+
+
+        #page4 h1 {
+
+            font-size: 55px;
+
+            margin-top: 5px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .birthday-text {
+
+            max-width: 650px;
+
+            line-height: 1.7;
+
+            font-size: 18px;
+
+            margin: 12px 0;
+
+            opacity: 0;
+
+            animation:
+                textAppear
+                1s
+                forwards;
+
+        }
+
+
+        .birthday-text:nth-of-type(1) {
+            animation-delay: 0.5s;
+        }
+
+
+        .birthday-text:nth-of-type(2) {
+            animation-delay: 1.5s;
+        }
+
+
+        .birthday-text:nth-of-type(3) {
+            animation-delay: 2.5s;
+        }
+
+
+        .birthday-text:nth-of-type(4) {
+            animation-delay: 3.5s;
+        }
+
+
+        .birthday-text:nth-of-type(5) {
+            animation-delay: 4.5s;
+        }
+
+
+        @keyframes textAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(15px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        @keyframes birthdayBounce {
+
+            0%, 100% {
+
+                transform:
+                    translateY(0);
+
+            }
+
+            50% {
+
+                transform:
+                    translateY(-10px);
+
+            }
+
+        }
+
+
+        /* =========================
+           TRANG 5 — Ô CHỮ
+        ========================= */
+
+        #page5 {
+
+            padding: 15px;
+
+            overflow-y: auto;
+
+        }
+
+
+        #page5 h2 {
+
+            font-size: 36px;
+
+            letter-spacing: 3px;
+
+            margin: 5px 0;
+
+        }
+
+
+        .puzzle-subtitle {
+
+            font-family: monospace;
+
+            font-size: 15px;
+
+            margin: 5px 0 10px 0;
+
+        }
+
+
+        .puzzle-layout {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 5px;
+
+        }
+
+
+        .puzzle-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            min-height: 32px;
+
+        }
+
+
+        .row-number {
+
+            width: 25px;
+
+            text-align: right;
+
+            font-family: monospace;
+
+            color: #B8941F;
+
+            font-size: 13px;
+
+        }
+
+
+        .word-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(14, 30px);
+
+            gap: 3px;
+
+        }
+
+
+        .cell {
+
+            width: 30px;
+
+            height: 30px;
+
+            border: 1.5px solid #D4AF37;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family: monospace;
+
+            font-weight: bold;
+
+            font-size: 15px;
+
+            color: #D4AF37;
+
+            background: white;
+
+            border-radius: 4px;
+
+        }
+
+
+        .empty-cell {
+
+            border: none;
+
+            background: transparent;
+
+        }
+
+
+        .secret-cell {
+
+            border: 2px solid #B8941F;
+
+            background: #FFF9E6;
+
+        }
+
+
+        .secret-cell.revealed {
+
+            background: #D4AF37;
+
+            color: white;
+
+            transform: scale(1.08);
+
+        }
+
+
+        .answer-area {
+
+            display: flex;
+
+            gap: 5px;
+
+        }
+
+
+        .answer-input {
+
+            width: 120px;
+
+            height: 30px;
+
+            border:
+                1.5px solid #D4AF37;
+
+            border-radius: 6px;
+
+            padding: 5px 8px;
+
+            outline: none;
+
+            color: #B8941F;
+
+            font-weight: bold;
+
+        }
+
+
+        .answer-input:focus {
+
+            box-shadow:
+                0 0 8px
+                rgba(212, 175, 55, 0.3);
+
+        }
+
+
+        .check-button {
+
+            padding: 5px 10px;
+
+            font-size: 12px;
+
+            border-radius: 6px;
+
+        }
+
+
+        /* HINT */
+
+        .hint {
+
+            display: block;
+
+            font-size: 12px;
+
+            color: #B8941F;
+
+            width: 220px;
+
+            min-width: 220px;
+
+            text-align: left;
+
+            line-height: 1.4;
+
+            margin-left: 10px;
+
+        }
+
+
+        /* SAI */
+
+        .wrong {
+
+            animation: shake 0.3s;
+
+            border-color: #B8941F;
+
+        }
+
+
+        @keyframes shake {
+
+            0%, 100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+
+        }
+
+
+        /* THANH TIẾN ĐỘ */
+
+        .puzzle-progress {
+
+            width: 400px;
+
+            max-width: 80%;
+
+            height: 7px;
+
+            border: 1px solid #D4AF37;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            margin: 10px 0;
+
+        }
+
+
+        .puzzle-progress-bar {
+
+            height: 100%;
+
+            width: 0%;
+
+            background: #D4AF37;
+
+            transition: 0.5s;
+
+        }
+
+
+        /* THÔNG ĐIỆP */
+
+        #secretMessage {
+
+            display: none;
+
+            margin-top: 10px;
+
+        }
+
+
+        #secretMessage .secret-title {
+
+            font-family: monospace;
+
+            font-size: 14px;
+
+            color: #B8941F;
+
+        }
+
+
+        #secretWord {
+
+            font-size: 36px;
+
+            letter-spacing: 8px;
+
+            font-weight: bold;
+
+            color: #D4AF37;
+
+            margin: 5px 0;
+
+        }
+
+
+        #nextPuzzleBtn {
+
+            display: none;
+
+            margin-top: 5px;
+
+            padding: 10px 20px;
+
+        }
+
+
+        /* =========================
+           TRANG 6 — ENDING
+        ========================= */
+
+        #page6 {
+
+            padding: 30px;
+
+        }
+
+
+        #page6 .ending-icon {
+
+            font-size: 70px;
+
+            margin-bottom: 15px;
+
+            animation:
+                endingFloat
+                2s
+                ease-in-out
+                infinite;
+
+        }
+
+
+        #page6 h1 {
+
+            font-size: 52px;
+
+            margin: 5px 0 15px 0;
+
+        }
+
+
+        #page6 .ending-title {
+
+            font-family: monospace;
+
+            font-size: 18px;
+
+            color: #B8941F;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        #page6 .ending-message {
+
+            max-width: 600px;
+
+            font-size: 22px;
+
+            line-height: 1.7;
+
+            color: #B8941F;
+
+        }
+
+
+        #page6 .ending-time {
+
+            font-family: monospace;
+
+            font-size: 15px;
+
+            color: #B8941F;
+
+            margin-top: 20px;
+
+            opacity: 0.7;
+
+        }
+
+
+        .restart-button {
+
+            margin-top: 30px;
+
+        }
+
+
+        @keyframes endingFloat {
+
+            0%, 100% {
+
+                transform:
+                    translateY(0);
+
+            }
+
+            50% {
+
+                transform:
+                    translateY(-10px);
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         TRANG 1
+    ====================================== -->
+
+    <div id="page1" class="screen">
+
+        <h1>HAPPY BIRTHDAY!</h1>
+
+        <p>
+            A new year is updating...
+        </p>
+
+
+        <div class="buttons">
+
+            <button onclick="agree()">
+                Toi đong tinh
+            </button>
+
+
+            <button
+                id="disagreeBtn"
+                onclick="disagree()">
+
+                Toi khong đong tinh
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         TRANG 2
+    ====================================== -->
+
+    <div id="page2" class="screen hidden">
+
+        <h2>WAIT...</h2>
+
+        <p>
+            Another question...
+        </p>
+
+        <p>
+            Do you agree that I am very handsome? (cấm trả lời sai)
+        </p>
+
+
+        <div class="buttons">
+
+            <button onclick="yesPage2()">
+                YES
+            </button>
+
+
+            <button onclick="noPage2()">
+                NO
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         ACCESS DENIED
+    ====================================== -->
+
+    <div id="denied" class="screen hidden">
+
+        <h2>Đã bảo cấm rùi mà=)))</h2>
+
+    </div>
+
+
+
+    <!-- =====================================
+         TRANG 3
+    ====================================== -->
+
+    <div id="page3" class="screen hidden">
+
+        <h2>Câu hỏi thú vị cho kira </h2>
+
+        <p class="subtitle">
+            Mã xác minh bạn không phải robot 
+        </p>
+
+
+        <div class="progress-container">
+
+            <div
+                id="progressBar"
+                class="progress-bar">
+            </div>
+
+        </div>
+
+
+
+        <!-- CÂU 1 -->
+
+        <div
+            id="question1"
+            class="question-box">
+
+            <div class="question-number">
+                [01 / 03]
+            </div>
+
+            <div class="question">
+                Tại sao con gà lại đi qua đường
+            </div>
+
+
+            <div class="buttons">
+
+                <button onclick="answerQuestion(1)">
+                    Tại vì nó thích qua đường
+                </button>
+
+                <button onclick="answerQuestion(1)">
+                    KFC rất ngon
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CÂU 2 -->
+
+        <div
+            id="question2"
+            class="question-box"
+            style="display: none;">
+
+            <div class="question-number">
+                [02 / 03]
+            </div>
+
+            <div class="question">
+                Is today really your birthday?
+            </div>
+
+
+            <div class="buttons">
+
+                <button onclick="answerQuestion(2)">
+                    YES
+                </button>
+
+                <button onclick="answerQuestion(2)">
+                    Certainly
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CÂU 3 -->
+
+        <div
+            id="question3"
+            class="question-box"
+            style="display: none;">
+
+            <div class="question-number">
+                [03 / 03]
+            </div>
+
+            <div class="question">
+                Are you ready?
+            </div>
+
+
+            <div class="buttons">
+
+                <button onclick="answerQuestion(3)">
+                    YES
+                </button>
+
+                <button onclick="answerQuestion(3)">
+                    I HAVE NO CHOICE
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HOÀN TẤT -->
+
+        <div id="completeMessage">
+
+            <h2>
+                VERIFICATION COMPLETE
+            </h2>
+
+            <p>
+                Identity confirmed.
+            </p>
+
+            <p>
+                Aging process: unavoidable.
+            </p>
+
+        </div>
+
+
+        <button
+            id="continueBtn"
+            onclick="goToPage4()">
+
+            CONTINUE →
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =====================================
+         TRANG 4 — LỜI CHÚC
+    ====================================== -->
+
+    <div id="page4" class="screen hidden">
+
+        <div class="birthday-icon">
+            🎂
+        </div>
+
+
+        <h1>
+            HAPPY BIRTHDAY!
+        </h1>
+
+
+        <p class="birthday-text">
+            Chúc mừng sinh nhật anh nháaa
+        </p>
+
+
+        <p class="birthday-text">
+            Xin hãy tha thứ cho sự thiếu chuyên nghiệp
+            và dốt văn này vì em đã cố gắng hết sức
+            speedrun trong 3 ngày hihi
+        </p>
+
+
+        <p class="birthday-text">
+            Anh em mình gặp nhau khá là random nhưng mà
+            anh nói chuyện hợp với em phết, khá zui=))))
+        </p>
+
+
+        <p class="birthday-text">
+            Từ hôm nay là anh chính thức già hơn em 1 tuổi rồiiiii.
+            Chúc anh tuổi mới chăm ngoan học giỏi, cháu ngoan
+            Bác Hồ, sống hết mình với đam mê, đạt aim những thứ mình muốn, 
+            mở được công ty to đùng cho em làm giám đốc, lười bằng một nửa, 
+            nghẹo bằng một nửa, suy bằng một nửa nhưng mà cười gấp đôi nha=))). 
+            Em cũng muốn chúc dài hơn tí và ngầu hơn tí nhưng mà bí văn rùi nên cần gì sẽ bổ sung sau hihi
+        </p>
+
+
+        <p class="birthday-text">
+            Quan trọng nhất là.....
+            🎉 HAPPY BIRTHDAY, KIRA CHANNNNNN
+        </p>
+
+
+        <button
+            id="puzzleStartBtn"
+            onclick="goToPage5()">
+
+            Chơi đố vui có thưởng đeee →
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =====================================
+         TRANG 5 — GAME Ô CHỮ
+    ====================================== -->
+
+    <div id="page5" class="screen hidden">
+
+        <h2>Đố vui không thưởng</h2>
+
+        <p class="puzzle-subtitle">
+            Test mức độ nghẹo game - Hint: vật phẩm minecraft bằng tiếng anh
+        </p>
+
+
+        <div class="puzzle-progress">
+
+            <div
+                id="puzzleProgressBar"
+                class="puzzle-progress-bar">
+            </div>
+
+        </div>
+
+
+
+        <!-- HÀNG 1 — REDSTONE -->
+
+        <div class="puzzle-layout">
+
+            <div class="puzzle-row">
+
+                <div class="row-number">
+                    01
+                </div>
+
+                <div
+                    class="word-grid"
+                    id="grid1">
+                </div>
+
+                <div class="answer-area">
+
+                    <input
+                        id="answer1"
+                        class="answer-input"
+                        type="text"
+                        placeholder="Answer">
+
+                    <button
+                        class="check-button"
+                        onclick="checkAnswer(1)">
+                        ✓
+                    </button>
+
+                </div>
+
+                <div class="hint">
+                    Hint 1: Thứ giúp ta chơi minecraft trong minecraft
+                </div>
+
+            </div>
+
+
+
+            <!-- HÀNG 2 — FLINT -->
+
+            <div class="puzzle-row">
+
+                <div class="row-number">
+                    02
+                </div>
+
+                <div
+                    class="word-grid"
+                    id="grid2">
+                </div>
+
+                <div class="answer-area">
+
+                    <input
+                        id="answer2"
+                        class="answer-input"
+                        type="text"
+                        placeholder="Answer">
+
+                    <button
+                        class="check-button"
+                        onclick="checkAnswer(2)">
+                        ✓
+                    </button>
+
+                </div>
+
+                <div class="hint">
+                    Hint 2: Có thể đập phát ra ngay, có thể đập 30 cục chưa ra
+                </div>
+
+            </div>
+
+
+
+            <!-- HÀNG 3 — ANVIL -->
+
+            <div class="puzzle-row">
+
+                <div class="row-number">
+                    03
+                </div>
+
+                <div
+                    class="word-grid"
+                    id="grid3">
+                </div>
+
+                <div class="answer-area">
+
+                    <input
+                        id="answer3"
+                        class="answer-input"
+                        type="text"
+                        placeholder="Answer">
+
+                    <button
+                        class="check-button"
+                        onclick="checkAnswer(3)">
+                        ✓
+                    </button>
+
+                </div>
+
+                <div class="hint">
+                    Hint 3: Thứ đáng lẽ phải mọc trên cây táo của Newton
+                </div>
+
+            </div>
+
+
+
+            <!-- HÀNG 4 — LAVA -->
+
+            <div class="puzzle-row">
+
+                <div class="row-number">
+                    04
+                </div>
+
+                <div
+                    class="word-grid"
+                    id="grid4">
+                </div>
+
+                <div class="answer-area">
+
+                    <input
+                        id="answer4"
+                        class="answer-input"
+                        type="text"
+                        placeholder="Answer">
+
+                    <button
+                        class="check-button"
+                        onclick="checkAnswer(4)">
+                        ✓
+                    </button>
+
+                </div>
+
+                <div class="hint">
+                    Hint 4: Thứ tôi ước gì nó vô hạn với 2 xô
+                </div>
+
+            </div>
+
+
+
+            <!-- HÀNG 5 — ENCHANT -->
+
+            <div class="puzzle-row">
+
+                <div class="row-number">
+                    05
+                </div>
+
+                <div
+                    class="word-grid"
+                    id="grid5">
+                </div>
+
+                <div class="answer-area">
+
+                    <input
+                        id="answer5"
+                        class="answer-input"
+                        type="text"
+                        placeholder="Answer">
+
+                    <button
+                        class="check-button"
+                        onclick="checkAnswer(5)">
+                        ✓
+                    </button>
+
+                </div>
+
+                <div class="hint">
+                    Hint 5: Sơn súng tăng damage
+                </div>
+
+            </div>
+
+
+
+            <!-- HÀNG 6 — GHAST -->
+
+            <div class="puzzle-row">
+
+                <div class="row-number">
+                    06
+                </div>
+
+                <div
+                    class="word-grid"
+                    id="grid6">
+                </div>
+
+                <div class="answer-area">
+
+                    <input
+                        id="answer6"
+                        class="answer-input"
+                        type="text"
+                        placeholder="Answer">
+
+                    <button
+                        class="check-button"
+                        onclick="checkAnswer(6)">
+                        ✓
+                    </button>
+
+                </div>
+
+                <div class="hint">
+                    Hint 6: Thích bắn lủng cầu của player
+                </div>
+
+            </div>
+
+
+
+            <!-- HÀNG 7 — CHEST -->
+
+            <div class="puzzle-row">
+
+                <div class="row-number">
+                    07
+                </div>
+
+                <div
+                    class="word-grid"
+                    id="grid7">
+                </div>
+
+                <div class="answer-area">
+
+                    <input
+                        id="answer7"
+                        class="answer-input"
+                        type="text"
+                        placeholder="Answer">
+
+                    <button
+                        class="check-button"
+                        onclick="checkAnswer(7)">
+                        ✓
+                    </button>
+
+                </div>
+
+                <div class="hint">
+                    Hint 7: My nameeee
+                </div>
+
+            </div>
+
+
+
+            <!-- HÀNG 8 — ENDERMAN -->
+
+            <div class="puzzle-row">
+
+                <div class="row-number">
+                    08
+                </div>
+
+                <div
+                    class="word-grid"
+                    id="grid8">
+                </div>
+
+                <div class="answer-area">
+
+                    <input
+                        id="answer8"
+                        class="answer-input"
+                        type="text"
+                        placeholder="Answer">
+
+                    <button
+                        class="check-button"
+                        onclick="checkAnswer(8)">
+                        ✓
+                    </button>
+
+                </div>
+
+                <div class="hint">
+                    Hint 8: Oi anh da đen
+                </div>
+
+            </div>
+
+
+
+            <!-- HÀNG 9 — NETHERITE -->
+
+            <div class="puzzle-row">
+
+                <div class="row-number">
+                    09
+                </div>
+
+                <div
+                    class="word-grid"
+                    id="grid9">
+                </div>
+
+                <div class="answer-area">
+
+                    <input
+                        id="answer9"
+                        class="answer-input"
+                        type="text"
+                        placeholder="Answer">
+
+                    <button
+                        class="check-button"
+                        onclick="checkAnswer(9)">
+                        ✓
+                    </button>
+
+                </div>
+
+                <div class="hint">
+                    Hint 9: Kiếm cái này tốn giường vô cùng=))
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- THÔNG ĐIỆP ẨN -->
+
+        <div id="secretMessage">
+
+            <div class="secret-title">
+                MESSAGE DECRYPTED
+            </div>
+
+            <div id="secretWord">
+                SNVVNGHEN
+            </div>
+
+            <p>
+                You found the hidden message.
+            </p>
+
+            <button
+                id="nextPuzzleBtn"
+                onclick="finishPuzzle()">
+
+                CONTINUE →
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         TRANG 6 — ENDING
+    ====================================== -->
+
+    <div id="page6" class="screen hidden">
+
+        <div
+            id="endingIcon"
+            class="ending-icon">
+            🌙
+        </div>
+
+
+        <h1 id="endingTitle">
+            GOOD NIGHT
+        </h1>
+
+
+        <div class="ending-title">
+            BIRTHDAY.EXE — SESSION COMPLETE
+        </div>
+
+
+        <p
+            id="endingMessage"
+            class="ending-message">
+            Game đã hoàn thành.<br>
+            Giờ thì đi ngủ điii =)))
+        </p>
+
+
+        <p
+            id="endingTime"
+            class="ending-time">
+        </p>
+
+
+        <button
+            class="restart-button"
+            onclick="restartGame()">
+
+            PLAY AGAIN ↻
+
+        </button>
+
+    </div>
+
+
+
+    <script>
+
+
+        /* =====================================
+           TRANG 1 — ĐỒNG TÌNH
+        ====================================== */
+
+        function agree() {
+
+            const popup =
+                document.createElement("div");
+
+
+            popup.className = "popup";
+
+
+            popup.innerText =
+                "Biet ngay ma";
+
+
+            document.body.appendChild(popup);
+
+
+            setTimeout(function () {
+
+                popup.classList.add("hide");
+
+            }, 1000);
+
+
+            setTimeout(function () {
+
+                popup.remove();
+
+                goToPage2();
+
+            }, 1900);
+
+        }
+
+
+
+        /* =====================================
+           TRANG 1 — KHÔNG ĐỒNG TÌNH
+        ====================================== */
+
+        function disagree() {
+
+            document
+                .getElementById("disagreeBtn")
+                .style.display = "none";
+
+        }
+
+
+
+        /* =====================================
+           CHUYỂN SANG TRANG 2
+        ====================================== */
+
+        function goToPage2() {
+
+            document
+                .getElementById("page1")
+                .style.display = "none";
+
+
+            document
+                .getElementById("page2")
+                .classList
+                .remove("hidden");
+
+        }
+
+
+
+        /* =====================================
+           TRANG 2 — YES
+        ====================================== */
+
+        function yesPage2() {
+
+            const popup =
+                document.createElement("div");
+
+
+            popup.className = "popup";
+
+
+            popup.innerText =
+                "Thanh kiu";
+
+
+            document.body.appendChild(popup);
+
+
+            setTimeout(function () {
+
+                popup.classList.add("hide");
+
+            }, 1000);
+
+
+            setTimeout(function () {
+
+                popup.remove();
+
+                goToPage3();
+
+            }, 1900);
+
+        }
+
+
+
+        /* =====================================
+           TRANG 2 — NO
+        ====================================== */
+
+        function noPage2() {
+
+            document
+                .getElementById("page2")
+                .style.display = "none";
+
+
+            document
+                .getElementById("denied")
+                .classList
+                .remove("hidden");
+
+
+            setTimeout(function () {
+
+                window.close();
+
+            }, 2000);
+
+        }
+
+
+
+        /* =====================================
+           CHUYỂN SANG TRANG 3
+        ====================================== */
+
+        function goToPage3() {
+
+            document
+                .getElementById("page2")
+                .style.display = "none";
+
+
+            document
+                .getElementById("page3")
+                .classList
+                .remove("hidden");
+
+        }
+
+
+
+        /* =====================================
+           TRANG 3 — TRẢ LỜI
+        ====================================== */
+
+        let completedQuestions = 0;
+
+
+        function answerQuestion(number) {
+
+            completedQuestions++;
+
+
+            const currentQuestion =
+                document.getElementById(
+                    "question" + number
+                );
+
+
+            currentQuestion.classList.add(
+                "completed"
+            );
+
+
+            currentQuestion.style.display =
+                "none";
+
+
+            document
+                .getElementById("progressBar")
+                .style.width =
+                (completedQuestions / 3 * 100) + "%";
+
+
+            if (completedQuestions < 3) {
+
+                document
+                    .getElementById(
+                        "question" +
+                        (number + 1)
+                    )
+                    .style.display = "block";
+
+            }
+
+
+            else {
+
+                document
+                    .getElementById(
+                        "completeMessage"
+                    )
+                    .style.display = "block";
+
+
+                document
+                    .getElementById(
+                        "continueBtn"
+                    )
+                    .style.display = "block";
+
+            }
+
+        }
+
+
+
+        /* =====================================
+           TRANG 4
+        ====================================== */
+
+        function goToPage4() {
+
+            document
+                .getElementById("page3")
+                .style.display = "none";
+
+
+            document
+                .getElementById("page4")
+                .classList
+                .remove("hidden");
+
+        }
+
+
+
+        /* =====================================
+           CHUYỂN TRANG 4 → TRANG 5
+        ====================================== */
+
+        function goToPage5() {
+
+            document
+                .getElementById("page4")
+                .style.display = "none";
+
+
+            document
+                .getElementById("page5")
+                .classList
+                .remove("hidden");
+
+        }
+
+
+
+        /* =====================================
+           DỮ LIỆU Ô CHỮ
+        ====================================== */
+
+        const puzzleData = [
+
+            {
+                word: "REDSTONE",
+                secretPosition: 4,
+                startColumn: 3
+            },
+
+            {
+                word: "FLINT",
+                secretPosition: 4,
+                startColumn: 3
+            },
+
+            {
+                word: "ANVIL",
+                secretPosition: 3,
+                startColumn: 4
+            },
+
+            {
+                word: "LAVA",
+                secretPosition: 3,
+                startColumn: 4
+            },
+
+            {
+                word: "ENCHANT",
+                secretPosition: 2,
+                startColumn: 5
+            },
+
+            {
+                word: "GHAST",
+                secretPosition: 1,
+                startColumn: 6
+            },
+
+            {
+                word: "CHEST",
+                secretPosition: 2,
+                startColumn: 5
+            },
+
+            {
+                word: "ENDERMAN",
+                secretPosition: 1,
+                startColumn: 6
+            },
+
+            {
+                word: "NETHERITE",
+                secretPosition: 1,
+                startColumn: 6
+            }
+
+        ];
+
+
+        let solvedCount = 0;
+
+
+
+        /* =====================================
+           TẠO LƯỚI
+        ====================================== */
+
+        function createPuzzleGrids() {
+
+            puzzleData.forEach(function (item, index) {
+
+                const grid =
+                    document.getElementById(
+                        "grid" + (index + 1)
+                    );
+
+
+                for (
+                    let column = 1;
+                    column <= 14;
+                    column++
+                ) {
+
+                    const cell =
+                        document.createElement("div");
+
+
+                    cell.className =
+                        "cell empty-cell";
+
+
+                    const wordStart =
+                        item.startColumn;
+
+
+                    const wordEnd =
+                        item.startColumn +
+                        item.word.length -
+                        1;
+
+
+                    if (
+                        column >= wordStart &&
+                        column <= wordEnd
+                    ) {
+
+                        cell.className =
+                            "cell";
+
+
+                        const letterIndex =
+                            column -
+                            wordStart;
+
+
+                        if (
+                            letterIndex + 1 ===
+                            item.secretPosition
+                        ) {
+
+                            cell.classList.add(
+                                "secret-cell"
+                            );
+
+                        }
+
+                    }
+
+
+                    grid.appendChild(cell);
+
+                }
+
+            });
+
+        }
+
+
+
+        /* =====================================
+           KIỂM TRA ĐÁP ÁN
+        ====================================== */
+
+        function checkAnswer(number) {
+
+            const item =
+                puzzleData[number - 1];
+
+
+            const input =
+                document.getElementById(
+                    "answer" + number
+                );
+
+
+            const userAnswer =
+                input.value
+                .trim()
+                .toUpperCase();
+
+
+            if (
+                userAnswer ===
+                item.word
+            ) {
+
+                revealWord(number);
+
+            }
+
+            else {
+
+                input.classList.remove(
+                    "wrong"
+                );
+
+
+                void input.offsetWidth;
+
+
+                input.classList.add(
+                    "wrong"
+                );
+
+            }
+
+        }
+
+
+
+        /* =====================================
+           HIỆN ĐÁP ÁN ĐÚNG
+        ====================================== */
+
+        function revealWord(number) {
+
+            const item =
+                puzzleData[number - 1];
+
+
+            const grid =
+                document.getElementById(
+                    "grid" + number
+                );
+
+
+            for (
+                let i = 0;
+                i < item.word.length;
+                i++
+            ) {
+
+                const actualColumn =
+                    item.startColumn + i;
+
+
+                const cell =
+                    grid.children[
+                        actualColumn - 1
+                    ];
+
+
+                cell.classList.remove(
+                    "empty-cell"
+                );
+
+
+                cell.classList.add(
+                    "cell"
+                );
+
+
+                cell.innerText =
+                    item.word[i];
+
+            }
+
+
+            const secretColumn =
+                item.startColumn +
+                item.secretPosition -
+                1;
+
+
+            const secretCell =
+                grid.children[
+                    secretColumn - 1
+                ];
+
+
+            secretCell.classList.add(
+                "revealed"
+            );
+
+
+            const input =
+                document.getElementById(
+                    "answer" + number
+                );
+
+
+            input.disabled = true;
+
+
+            const button =
+                input.nextElementSibling;
+
+
+            button.disabled = true;
+
+
+            solvedCount++;
+
+
+            document
+                .getElementById(
+                    "puzzleProgressBar"
+                )
+                .style.width =
+                (solvedCount / 9 * 100) +
+                "%";
+
+
+            if (solvedCount === 9) {
+
+                setTimeout(function () {
+
+                    showSecretMessage();
+
+                }, 700);
+
+            }
+
+        }
+
+
+
+        /* =====================================
+           HIỆN THÔNG ĐIỆP
+        ====================================== */
+
+        function showSecretMessage() {
+
+            document
+                .getElementById(
+                    "secretMessage"
+                )
+                .style.display = "block";
+
+
+            document
+                .getElementById(
+                    "nextPuzzleBtn"
+                )
+                .style.display = "inline-block";
+
+        }
+
+
+
+        /* =====================================
+           KẾT THÚC GAME
+        ====================================== */
+
+        function finishPuzzle() {
+
+            const popup =
+                document.createElement("div");
+
+
+            popup.className = "popup";
+
+
+            popup.innerText =
+                "MESSAGE UNLOCKED";
+
+
+            document.body.appendChild(
+                popup
+            );
+
+
+            setTimeout(function () {
+
+                popup.classList.add(
+                    "hide"
+                );
+
+            }, 1000);
+
+
+            setTimeout(function () {
+
+                popup.remove();
+
+                goToPage6();
+
+            }, 1900);
+
+        }
+
+
+
+        /* =====================================
+           CHUYỂN SANG TRANG 6
+        ====================================== */
+
+        function goToPage6() {
+
+            document
+                .getElementById("page5")
+                .style.display = "none";
+
+
+            document
+                .getElementById("page6")
+                .classList
+                .remove("hidden");
+
+
+            updateEnding();
+
+        }
+
+
+
+        /* =====================================
+           ENDING THEO THỜI GIAN
+        ====================================== */
+
+        function updateEnding() {
+
+            const now =
+                new Date();
+
+
+            const hour =
+                now.getHours();
+
+
+            const endingIcon =
+                document.getElementById(
+                    "endingIcon"
+                );
+
+
+            const endingTitle =
+                document.getElementById(
+                    "endingTitle"
+                );
+
+
+            const endingMessage =
+                document.getElementById(
+                    "endingMessage"
+                );
+
+
+            const endingTime =
+                document.getElementById(
+                    "endingTime"
+                );
+
+
+            const timeString =
+                now.toLocaleTimeString(
+                    "vi-VN",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }
+                );
+
+
+            endingTime.innerText =
+                "Current time: " +
+                timeString;
+
+
+            /*
+               06:00 → 17:59
+               = BAN NGÀY
+            */
+
+            if (
+                hour >= 6 &&
+                hour < 18
+            ) {
+
+                endingIcon.innerText =
+                    "☀️";
+
+
+                endingTitle.innerText =
+                    "GOOD MORNING";
+
+
+                endingMessage.innerHTML =
+                    "Hết rùi, còn idea nhưng mà không biết code 🎉<br>" +
+                    "Giờ thì đi học đeee 📚";
+
+            }
+
+
+            /*
+               18:00 → 05:59
+               = BAN ĐÊM
+            */
+
+            else {
+
+                endingIcon.innerText =
+                    "🌙";
+
+
+                endingTitle.innerText =
+                    "GOOD NIGHT";
+
+
+                endingMessage.innerHTML =
+                    "Hết rùi, còn idea nhưng mà không biết code 🎉<br>" +
+                    "Giờ thì đi ngủ đi =))) 💤";
+
+            }
+
+        }
+
+
+
+        /* =====================================
+           CHƠI LẠI
+        ====================================== */
+
+        function restartGame() {
+
+            location.reload();
+
+        }
+
+
+
+        /* =====================================
+           KHỞI TẠO GAME
+        ====================================== */
+
+        createPuzzleGrids();
+
+    </script>
+
+</body>
+
+</html>
+```
